@@ -30,6 +30,16 @@ public class Good {
     @Column(nullable = false)
     private Double priceperday;
 
+    @NotBlank(message = "The category cannot be empty")
+    @Column(nullable = false)
+    private String category;
+
+    @NotBlank(message = "The location cannot be empty")
+    @Column(nullable = false)
+    private String location;
+
+    private boolean available;
+
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
