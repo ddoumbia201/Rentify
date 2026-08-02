@@ -19,9 +19,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "The name cannot be empty")
+    @NotBlank(message = "The first name cannot be empty")
     @Column(nullable = false)
-    private String name;
+    private String firstName;
+
+    @NotBlank(message = "The last name cannot be empty")
+    @Column(nullable = false)
+    private String lastName;
 
     @NotBlank(message = "The email cannot be empty")
     @Email(message = "The email format is invalid")

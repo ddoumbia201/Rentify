@@ -26,6 +26,14 @@ public class Rental {
     @Column(nullable = false)
     private String endDate;
 
+    @NotBlank(message = "The total price cannot be empty")
+    @Column(nullable = false)
+    private String totalPrice;
+
+    @NotBlank(message = "The status cannot be empty")
+    @Column(nullable = false)
+    private String status;
+
     @ManyToOne
     @JoinColumn(name = "good_id", nullable = false)
     private Good good;
