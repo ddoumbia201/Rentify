@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration — EventShare</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">EventShare</a>
+        <div class="nav-actions">
+            <span class="btn btn-primary">Admin</span>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+        <div class="dashboard-header">
+            <h1>Utilisateurs</h1>
+        </div>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Rôle</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>julie.d@exemple.com</td>
+                    <td>USER</td>
+                    <td><button class="btn">Supprimer</button></td>
+                </tr>
+                <tr>
+                    <td>marc.p@exemple.com</td>
+                    <td>USER</td>
+                    <td><button class="btn">Supprimer</button></td>
+                </tr>
+                <tr>
+                    <td>admin@eventshare.be</td>
+                    <td>ADMIN</td>
+                    <td><button class="btn">Supprimer</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="dashboard-header" style="margin-top: 40px;">
+            <h1>Annonces</h1>
+        </div>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Catégorie</th>
+                    <th>Propriétaire</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Château gonflable "Château fort"</td>
+                    <td>Animation</td>
+                    <td>julie.d@exemple.com</td>
+                    <td><button class="btn">Supprimer</button></td>
+                </tr>
+                <tr>
+                    <td>Set de 50 chaises pliantes</td>
+                    <td>Mobilier</td>
+                    <td>marc.p@exemple.com</td>
+                    <td><button class="btn">Supprimer</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

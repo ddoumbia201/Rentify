@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventShare — Louez du matériel événementiel</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">EventShare</a>
+        <div class="nav-actions">
+            <a href="login.html" class="btn">Connexion</a>
+            <a href="register.html" class="btn btn-primary">Inscription</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Louez le matériel parfait pour votre événement</h1>
+        <p>Décoration, audiovisuel, mobilier et plus, près de chez vous.</p>
+
+        <form class="search-bar">
+            <div class="search-field">
+                <label for="search-category">Catégorie</label>
+                <select id="search-category">
+                    <option>Toutes</option>
+                    <option>Décoration</option>
+                    <option>Audiovisuel</option>
+                    <option>Mobilier</option>
+                    <option>Vaisselle</option>
+                    <option>Animation</option>
+                </select>
+            </div>
+            <div class="search-field">
+                <label for="search-location">Lieu</label>
+                <input type="text" id="search-location" placeholder="Namur, Bruxelles...">
+            </div>
+            <div class="search-field">
+                <label for="search-date">Date</label>
+                <input type="date" id="search-date">
+            </div>
+            <button type="submit" class="search-submit">Rechercher</button>
+        </form>
+    </header>
+
+    <div class="categories">
+        <button class="category-pill active">Toutes</button>
+        <button class="category-pill">Décoration</button>
+        <button class="category-pill">Audiovisuel</button>
+        <button class="category-pill">Mobilier</button>
+        <button class="category-pill">Vaisselle</button>
+        <button class="category-pill">Animation</button>
+    </div>
+
+    <main class="catalogue">
+        <article class="item-card">
+            <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=400" alt="Château gonflable">
+            <div class="item-body">
+                <div class="item-title">Château gonflable "Château fort"</div>
+                <span class="item-category">Animation</span>
+                <div class="item-price">45 € / jour</div>
+            </div>
+        </article>
+
+        <article class="item-card">
+            <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=400" alt="Chaises pliantes">
+            <div class="item-body">
+                <div class="item-title">Set de 50 chaises pliantes</div>
+                <span class="item-category">Mobilier</span>
+                <div class="item-price">20 € / jour</div>
+            </div>
+        </article>
+
+        <article class="item-card">
+            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400" alt="Vidéoprojecteur">
+            <div class="item-body">
+                <div class="item-title">Vidéoprojecteur HD</div>
+                <span class="item-category">Audiovisuel</span>
+                <div class="item-price">15 € / jour</div>
+            </div>
+        </article>
+
+        <article class="item-card">
+            <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400" alt="Arche florale">
+            <div class="item-body">
+                <div class="item-title">Arche florale décorative</div>
+                <span class="item-category">Décoration</span>
+                <div class="item-price">35 € / jour</div>
+            </div>
+        </article>
+
+        <article class="item-card">
+            <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400" alt="Vaisselle de fête">
+            <div class="item-body">
+                <div class="item-title">Service de vaisselle (40 pers.)</div>
+                <span class="item-category">Vaisselle</span>
+                <div class="item-price">25 € / jour</div>
+            </div>
+        </article>
+
+        <article class="item-card">
+            <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400" alt="Sono et enceintes">
+            <div class="item-body">
+                <div class="item-title">Sono + micro sans fil</div>
+                <span class="item-category">Audiovisuel</span>
+                <div class="item-price">30 € / jour</div>
+            </div>
+        </article>
+    </main>
+
+</body>
+</html>

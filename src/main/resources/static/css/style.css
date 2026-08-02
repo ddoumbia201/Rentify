@@ -1,0 +1,435 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap');
+
+:root {
+    --rose: #E91E8C;
+    --rose-clair: #FBEAF0;
+    --bordeaux: #4A1030;
+    --fond: #FDF6F8;
+    --texte: #333333;
+    --texte-clair: #777777;
+    --bordure: #ECE0E4;
+    --rayon: 12px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: var(--texte);
+    background: var(--fond);
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--bordeaux);
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- Navbar --- */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 40px;
+    background: #fff;
+    border-bottom: 1px solid var(--bordure);
+}
+
+.navbar .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--bordeaux);
+}
+
+.navbar .nav-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--bordure);
+    background: #fff;
+    color: var(--bordeaux);
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--rose);
+    border-color: var(--rose);
+    color: #fff;
+}
+
+/* --- Hero --- */
+
+.hero {
+    position: relative;
+    height: 320px;
+    background-image:
+        linear-gradient(rgba(20, 5, 15, 0.35), rgba(20, 5, 15, 0.35)),
+        url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1200');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 60px;
+}
+
+.hero h1 {
+    color: #fff;
+    font-size: 34px;
+    max-width: 480px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #f4dbe6;
+    font-size: 15px;
+    margin: 0;
+}
+
+/* --- Barre de recherche flottante --- */
+
+.search-bar {
+    position: absolute;
+    bottom: -28px;
+    left: 60px;
+    right: 60px;
+    background: #fff;
+    border-radius: var(--rayon);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 8px 24px rgba(74, 16, 48, 0.12);
+}
+
+.search-field {
+    flex: 1;
+    padding: 0 16px;
+    border-right: 1px solid var(--bordure);
+}
+
+.search-field:last-of-type {
+    border-right: none;
+}
+
+.search-field label {
+    display: block;
+    font-size: 11px;
+    color: var(--texte-clair);
+    margin-bottom: 2px;
+}
+
+.search-field input,
+.search-field select {
+    border: none;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: var(--texte);
+    width: 100%;
+    padding: 0;
+    background: transparent;
+}
+
+.search-field input:focus,
+.search-field select:focus {
+    outline: none;
+}
+
+.search-submit {
+    background: var(--rose);
+    color: #fff;
+    font-size: 14px;
+    padding: 10px 22px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* --- Filtres catégories --- */
+
+.categories {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 56px 40px 12px;
+}
+
+.category-pill {
+    font-size: 13px;
+    padding: 8px 18px;
+    border-radius: 18px;
+    border: 1px solid var(--bordure);
+    background: #fff;
+    color: var(--bordeaux);
+    cursor: pointer;
+}
+
+.category-pill.active {
+    background: var(--rose);
+    border-color: var(--rose);
+    color: #fff;
+}
+
+/* --- Grille de cartes --- */
+
+.catalogue {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    padding: 16px 40px 60px;
+}
+
+.item-card {
+    background: #fff;
+    border-radius: var(--rayon);
+    border: 1px solid var(--bordure);
+    overflow: hidden;
+}
+
+.item-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    display: block;
+}
+
+.item-card .item-body {
+    padding: 14px 16px;
+}
+
+.item-card .item-title {
+    font-size: 15px;
+    color: var(--texte);
+    margin-bottom: 4px;
+}
+
+.item-card .item-category {
+    display: inline-block;
+    font-size: 11px;
+    color: var(--rose);
+    background: var(--rose-clair);
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+}
+
+.item-card .item-price {
+    font-size: 14px;
+    color: var(--texte-clair);
+}
+
+/* --- Détail d'une annonce --- */
+
+.item-detail {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 40px;
+    padding: 40px 60px 80px;
+    align-items: start;
+}
+
+.item-detail .gallery img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    border-radius: var(--rayon);
+}
+
+.item-detail .item-title-large {
+    font-size: 28px;
+    margin-top: 20px;
+}
+
+.item-detail .item-owner {
+    font-size: 13px;
+    color: var(--texte-clair);
+    margin: 6px 0 20px;
+}
+
+.item-detail .item-description {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--texte);
+}
+
+/* Encart de réservation "collant", façon Airbnb */
+.booking-box {
+    position: sticky;
+    top: 24px;
+    background: #fff;
+    border: 1px solid var(--bordure);
+    border-radius: var(--rayon);
+    padding: 24px;
+}
+
+.booking-box .price {
+    font-size: 22px;
+    color: var(--bordeaux);
+    margin-bottom: 16px;
+}
+
+.booking-box .price span {
+    font-size: 13px;
+    color: var(--texte-clair);
+    font-weight: normal;
+}
+
+.booking-box label {
+    display: block;
+    font-size: 12px;
+    color: var(--texte-clair);
+    margin: 12px 0 4px;
+}
+
+.booking-box input {
+    width: 100%;
+    padding: 9px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--bordure);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+}
+
+.booking-box .btn-primary {
+    width: 100%;
+    margin-top: 18px;
+    padding: 11px;
+}
+
+/* --- Tableaux de bord (mes annonces / réservations) --- */
+
+.dashboard {
+    padding: 40px 60px 80px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.item-card-actions {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px 14px;
+}
+
+.item-card-actions .btn {
+    flex: 1;
+    padding: 6px 0;
+    font-size: 12px;
+    text-align: center;
+}
+
+.status-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 10px;
+}
+
+.status-en-attente { background: #FDF3D8; color: #8A6D1D; }
+.status-confirmee { background: #DDF3E4; color: #1E7A44; }
+.status-refusee { background: #FBE2E2; color: #B23A3A; }
+
+/* --- Table admin --- */
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: var(--rayon);
+    overflow: hidden;
+    border: 1px solid var(--bordure);
+}
+
+.admin-table th,
+.admin-table td {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--bordure);
+}
+
+.admin-table th {
+    background: var(--rose-clair);
+    color: var(--bordeaux);
+    font-weight: 500;
+}
+
+.admin-table tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table .btn {
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+/* --- Formulaires (login / register) --- */
+
+.form-page {
+    max-width: 400px;
+    margin: 80px auto;
+    background: #fff;
+    padding: 36px;
+    border-radius: var(--rayon);
+    border: 1px solid var(--bordure);
+}
+
+.form-page h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-page label {
+    display: block;
+    font-size: 13px;
+    color: var(--texte-clair);
+    margin-bottom: 6px;
+    margin-top: 16px;
+}
+
+.form-page input,
+.form-page select,
+.form-page textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--bordure);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+}
+
+.form-page .btn-primary {
+    width: 100%;
+    margin-top: 24px;
+    padding: 11px;
+}
+
+.form-page .form-footer {
+    text-align: center;
+    font-size: 13px;
+    color: var(--texte-clair);
+    margin-top: 16px;
+}
+
+.form-page .form-footer a {
+    color: var(--rose);
+}
