@@ -27,6 +27,8 @@ public class SecurityConfig {
         // Disable CSRF protection and configure authorization rules
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // Allow unauthenticated access to the root, HTML files, CSS, and JS resources
+                        //.requestMatchers("/", "/*.html", "/css/**", "/js/**").permitAll()
                         // Allow unauthenticated access to the /api/auth/** endpoints
                         .requestMatchers("/api/auth/**").permitAll()
                         // Allow only users with the ADMIN role to access /api/admin/** endpoints
