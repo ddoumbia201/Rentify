@@ -3,7 +3,8 @@ package com.project.locationbiens.config;
 import com.project.locationbiens.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,7 +29,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         // Allow unauthenticated access to the root, HTML files, CSS, and JS resources
-                        //.requestMatchers("/", "/*.html", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/", "/*.html", "/css/**", "/js/**").permitAll()
                         // Allow unauthenticated access to the /api/auth/** endpoints
                         .requestMatchers("/api/auth/**").permitAll()
                         // Allow only users with the ADMIN role to access /api/admin/** endpoints
@@ -37,7 +38,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 // Use HTTP Basic authentication for simplicity
-                .httpBasic(Customizer.withDefaults());
+                //.httpBasic(Customizer.withDefaults());
+                .httpBasic(httpBasic -> httpBasic.disable());
 
         return http.build();
     }
@@ -58,5 +60,11 @@ public class SecurityConfig {
                         .roles(user.getRole().replace("ROLE_", "")) // Set the user's role
                         .build())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        // Return the AuthenticationManager from the AuthenticationConfiguration
+        return config.getAuthenticationManager();
     }
 }
