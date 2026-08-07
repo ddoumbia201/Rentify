@@ -109,4 +109,32 @@ public class AuthController {
                 )
         ));
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutUser(HttpServletRequest request) {
+        // Invalidate the session to log out the user
+        request.getSession().invalidate();
+        SecurityContextHolder.clearContext(); // Clear the SecurityContext to remove authentication information
+        return ResponseEntity.ok(Map.of("message", "Logout successful"));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> me(Authentication authentication) {
+        // Check if the user is authenticated
+        if (authentication == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "User is not authenticated"));
+        }
+
+        User user = userRepository.findByEmail(authentication.getName()).orElseThrow();
+
+        // Return the user details (excluding password)
+        return ResponseEntity.ok(Map.of(
+                "id", user.getId(),
+                "firstName", user.getFirstName(),
+                "lastName", user.getLastName(),
+                "email", user.getEmail(),
+                "role", user.getRole()
+        ));
+    }
 }
