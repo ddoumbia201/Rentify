@@ -3,6 +3,7 @@ package com.project.locationbiens.config;
 import com.project.locationbiens.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,12 +29,14 @@ public class SecurityConfig {
         // Disable CSRF protection and configure authorization rules
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // Allow unauthenticated access to the root, HTML files, CSS, and JS resources
-                        .requestMatchers("/", "/*.html", "/css/**", "/js/**").permitAll()
+                        // Allow unauthenticated access to the root, HTML files, CSS, JS resources and error pages
+                        .requestMatchers("/", "/*.html", "/css/**", "/js/**", "/error").permitAll()
                         // Allow unauthenticated access to the /api/auth/** endpoints
                         .requestMatchers("/api/auth/**").permitAll()
                         // Allow only users with the ADMIN role to access /api/admin/** endpoints
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        // Allow unauthenticated access to GET requests for /api/goods and /api/goods/{id}
+                        .requestMatchers(HttpMethod.GET, "/api/goods", "/api/goods/**").permitAll()
                         // Require authentication for all other requests
                         .anyRequest().authenticated()
                 )
