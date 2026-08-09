@@ -2,6 +2,8 @@ package com.project.locationbiens.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.DecimalMin;
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,9 +28,9 @@ public class Good {
     @Column(nullable = false)
     private String description;
 
-    @NotBlank(message = "The price per day cannot be empty")
     @Column(nullable = false)
-    private Double priceperday;
+    @DecimalMin(value = "0.0", inclusive = false, message = "The price per day must be greater than 0")
+    private BigDecimal priceperday;
 
     @NotBlank(message = "The category cannot be empty")
     @Column(nullable = false)
@@ -40,7 +42,7 @@ public class Good {
 
     private boolean available;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY) // fetch type set to LAZY to avoid loading the owner unless needed
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 }
