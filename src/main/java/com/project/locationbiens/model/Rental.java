@@ -2,6 +2,9 @@ package com.project.locationbiens.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.DecimalMin;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,25 +23,26 @@ public class Rental {
 
     @NotBlank(message = "The start date cannot be empty")
     @Column(nullable = false)
-    private String startDate;
+    private LocalDate startDate;
 
     @NotBlank(message = "The end date cannot be empty")
     @Column(nullable = false)
-    private String endDate;
+    private LocalDate endDate;
 
     @NotBlank(message = "The total price cannot be empty")
     @Column(nullable = false)
-    private String totalPrice;
+    @DecimalMin(value = "0.0", inclusive = false, message = "The total price must be greater than 0")
+    private BigDecimal totalPrice;
 
     @NotBlank(message = "The status cannot be empty")
     @Column(nullable = false)
     private String status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "good_id", nullable = false)
     private Good good;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "renter_id", nullable = false)
     private User renter;
 }
