@@ -33,6 +33,8 @@ public class SecurityConfig {
                         .requestMatchers("/", "/*.html", "/css/**", "/js/**", "/error").permitAll()
                         // Allow unauthenticated access to the /api/auth/** endpoints
                         .requestMatchers("/api/auth/**").permitAll()
+                        // Allow authenticated access to the /api/goods/mine endpoint
+                        .requestMatchers(HttpMethod.GET, "/api/goods/mine").authenticated()
                         // Allow only users with the ADMIN role to access /api/admin/** endpoints
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         // Allow unauthenticated access to GET requests for /api/goods and /api/goods/{id}
