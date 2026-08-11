@@ -7,4 +7,6 @@ import java.util.List;
 public interface GoodRepository extends JpaRepository<Good, Long> {
     // searches for all goods that are available for rent
     List<Good> findByAvailableTrue();
+    // searches for all goods that belong to a specific owner
+    List<Good> findByOwnerId(Long ownerId);
 }
