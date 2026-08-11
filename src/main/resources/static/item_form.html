@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une annonce — EventShare</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/navbar.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">EventShare</a>
+        <div class="nav-actions">
+            <a href="login.html" class="btn">Connexion</a>
+            <a href="register.html" class="btn btn-primary">Inscription</a>
+        </div>
+    </nav>
+
+    <form id="itemForm" class="form-page">
+        <h2>Ajouter une annonce</h2>
+
+        <label for="title">Titre</label>
+        <input type="text" id="title" placeholder="Château gonflable">
+
+        <label for="description">Description</label>
+        <textarea id="description" rows="4" placeholder="Décrivez votre bien..."></textarea>
+
+        <label for="pricePerDay">Prix par jour (€)</label>
+        <input type="number" id="pricePerDay" step="0.01" placeholder="45.00">
+
+        <label for="category">Catégorie</label>
+        <select id="category">
+            <option>Décoration</option>
+            <option>Audiovisuel</option>
+            <option>Mobilier</option>
+            <option>Vaisselle</option>
+            <option>Animation</option>
+        </select>
+
+        <label for="location">Lieu</label>
+        <input type="text" id="location" placeholder="Namur">
+
+        <button type="submit" class="btn btn-primary">Publier l'annonce</button>
+    </form>
+
+    <script src="/js/item_form.js"></script>
+</body>
+</html>
