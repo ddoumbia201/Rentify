@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface RentalRepository extends JpaRepository<Rental, Long> {
     List<Rental> findByRenterId(Long renterId); // Custom query method to find rentals by renter ID
+
+    List<Rental> findByGoodId(Long goodId); // Custom query method to find rentals by good ID
 }
