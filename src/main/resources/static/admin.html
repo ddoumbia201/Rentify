@@ -20,7 +20,7 @@
         <div class="dashboard-header">
             <h1>Utilisateurs</h1>
         </div>
-
+ 
         <table class="admin-table">
             <thead>
                 <tr>
@@ -29,29 +29,13 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>julie.d@exemple.com</td>
-                    <td>USER</td>
-                    <td><button class="btn">Supprimer</button></td>
-                </tr>
-                <tr>
-                    <td>marc.p@exemple.com</td>
-                    <td>USER</td>
-                    <td><button class="btn">Supprimer</button></td>
-                </tr>
-                <tr>
-                    <td>admin@eventshare.be</td>
-                    <td>ADMIN</td>
-                    <td><button class="btn">Supprimer</button></td>
-                </tr>
-            </tbody>
+            <tbody id="users-tbody"></tbody>
         </table>
-
+ 
         <div class="dashboard-header" style="margin-top: 40px;">
             <h1>Annonces</h1>
         </div>
-
+ 
         <table class="admin-table">
             <thead>
                 <tr>
@@ -61,22 +45,9 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Château gonflable "Château fort"</td>
-                    <td>Animation</td>
-                    <td>julie.d@exemple.com</td>
-                    <td><button class="btn">Supprimer</button></td>
-                </tr>
-                <tr>
-                    <td>Set de 50 chaises pliantes</td>
-                    <td>Mobilier</td>
-                    <td>marc.p@exemple.com</td>
-                    <td><button class="btn">Supprimer</button></td>
-                </tr>
-            </tbody>
+            <tbody id="goods-tbody"></tbody>
         </table>
     </div>
-
+    <script src="/js/admin.js"></script>
 </body>
 </html>
