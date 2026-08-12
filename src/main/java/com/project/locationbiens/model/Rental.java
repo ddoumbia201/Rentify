@@ -3,6 +3,7 @@ package com.project.locationbiens.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
@@ -21,15 +22,15 @@ public class Rental {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "The start date cannot be empty")
+    @NotNull(message = "The start date cannot be empty")
     @Column(nullable = false)
     private LocalDate startDate;
 
-    @NotBlank(message = "The end date cannot be empty")
+    @NotNull(message = "The end date cannot be empty")
     @Column(nullable = false)
     private LocalDate endDate;
 
-    @NotBlank(message = "The total price cannot be empty")
+    @NotNull(message = "The total price cannot be empty")
     @Column(nullable = false)
     @DecimalMin(value = "0.0", inclusive = false, message = "The total price must be greater than 0")
     private BigDecimal totalPrice;
