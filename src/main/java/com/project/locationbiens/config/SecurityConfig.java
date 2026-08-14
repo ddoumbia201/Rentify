@@ -1,6 +1,14 @@
 package com.project.locationbiens.config;
 
 import com.project.locationbiens.repository.UserRepository;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,6 +21,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -26,8 +39,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // Disable CSRF protection and configure authorization rules
-        http.csrf(csrf -> csrf.disable())
+        // Configure CSRF protection and authorization rules
+        http.csrf(csrf -> csrf
+        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+        .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())) // Configure CSRF protection to use cookies and handle CSRF tokens in requests
+            .addFilterAfter(csrfCookieFilter(), CsrfFilter.class) // Add a custom filter to handle CSRF tokens in cookies
                 .authorizeHttpRequests(auth -> auth
                         // Allow unauthenticated access to the root, HTML files, CSS, JS resources and error pages
                         .requestMatchers("/", "/*.html", "/css/**", "/js/**", "/error").permitAll()
@@ -72,4 +88,20 @@ public class SecurityConfig {
         // Return the AuthenticationManager from the AuthenticationConfiguration
         return config.getAuthenticationManager();
     }
+
+    // Define a custom filter to handle CSRF tokens in cookies
+    private OncePerRequestFilter csrfCookieFilter() {
+    return new OncePerRequestFilter() {
+        @Override
+        protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                         FilterChain filterChain) throws ServletException, IOException {
+            CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+            if (csrfToken != null) {
+                csrfToken.getToken();
+            }
+            filterChain.doFilter(request, response);
+        }
+    };
+}
+
 }
