@@ -21,7 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch('/api/auth/login', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'X-XSRF-TOKEN': getCsrfToken() // Include the CSRF token in the request headers
                     },
                     body: JSON.stringify(loginData)
                 });

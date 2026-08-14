@@ -35,7 +35,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
             const response = await fetch('/api/rentals', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': getCsrfToken() // Include the CSRF token in the request headers
+                },
                 body: JSON.stringify(rentalData)
             });
 

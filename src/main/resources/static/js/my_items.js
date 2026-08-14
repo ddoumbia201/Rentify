@@ -38,16 +38,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                 container.appendChild(card);
             });
 
-            // Brancher chaque bouton Supprimer après génération du HTML
+            // Add event listeners for delete buttons after they are added to the DOM
             document.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', async () => {
                     if (!confirm('Supprimer cette annonce ?')) return;
 
                     const id = btn.dataset.id;
-                    const response = await fetch(`/api/goods/${id}`, { method: 'DELETE' });
+                    const response = await fetch(`/api/goods/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'X-XSRF-TOKEN': getCsrfToken() }});
 
                     if (response.ok) {
-                        loadMyGoods(); // recharge la liste après suppression
+                        loadMyGoods(); // Reload the goods after deletion
+                    } else if (response.status === 409) {
+                        alert('Impossible de supprimer : cette annonce a des réservations associées.');
                     } else {
                         alert('Erreur lors de la suppression.');
                     }

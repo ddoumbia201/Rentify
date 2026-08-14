@@ -34,7 +34,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 btn.addEventListener('click', async () => {
                     if (!confirm('Supprimer cet utilisateur ?')) return;
                     const id = btn.dataset.id;
-                    const res = await fetch(`/api/admin/users/${id}`, { method: 'DELETE' });
+                    const res = await fetch(`/api/admin/users/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'X-XSRF-TOKEN': getCsrfToken() } // Include the CSRF token in the request headers
+                    });
                     if (res.ok) loadUsers();
                     else alert('Erreur lors de la suppression.');
                 });
@@ -63,23 +66,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 goodsTbody.appendChild(row);
             });
 
-            // Add event listeners for delete buttons
+            // Add event listeners for delete buttons 
             document.querySelectorAll('.delete-good-btn').forEach(btn => {
                 btn.addEventListener('click', async () => {
                     if (!confirm('Supprimer cette annonce ?')) return;
                     const id = btn.dataset.id;
-                    const res = await fetch(`/api/admin/goods/${id}`, { method: 'DELETE' });
-                    if (res.ok) loadGoods();
-                    else alert('Erreur lors de la suppression.');
-                });
-            });
-
-            // Add event listeners for delete buttons with reservation check
-            document.querySelectorAll('.delete-good-btn').forEach(btn => {
-                btn.addEventListener('click', async () => {
-                    if (!confirm('Supprimer cette annonce ?')) return;
-                    const id = btn.dataset.id;
-                    const res = await fetch(`/api/admin/goods/${id}`, { method: 'DELETE' });
+                    const res = await fetch(`/api/admin/goods/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'X-XSRF-TOKEN': getCsrfToken() } // Include the CSRF token in the request headers
+                    });
 
                     if (res.ok) {
                         loadGoods();

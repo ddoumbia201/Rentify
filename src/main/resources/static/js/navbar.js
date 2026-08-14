@@ -13,8 +13,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
 
             document.getElementById('logoutBtn').addEventListener('click', async () => {
-                await fetch('/api/auth/logout', { method: 'POST' });
-                window.location.href = 'index.html';
+                const response = await fetch('/api/auth/logout', {
+                    method: 'POST',
+                    headers: { 'X-XSRF-TOKEN': getCsrfToken() }
+                });
+                
+                if (response.ok) {
+                    window.location.href = 'index.html';
+                }
             });
         }
     } catch (error) {
