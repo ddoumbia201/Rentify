@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelector('.item-category').textContent = good.category;
         document.querySelector('.item-description').textContent = good.description;
         document.querySelector('.booking-box .price').innerHTML =
-            `${good.priceperday} € <span>/ jour</span>`;
+            `${escapeHtml(good.priceperday)} € <span>/ jour</span>`;
     } catch (error) {
         console.error('Error while loading the good\'s details:', error);
     }

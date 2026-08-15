@@ -23,10 +23,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             const card = document.createElement('article');
             card.className = 'item-card';
             card.innerHTML = `
-                <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=400" alt="${good.title}">
+                <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=400" alt="${escapeHtml(good.title)}">
                 <div class="item-body">
-                    <div class="item-title">${good.title}</div>
-                    <span class="item-category">${good.category}</span>
+                    <div class="item-title">${escapeHtml(good.title)}</div>
+                    <span class="item-category">${escapeHtml(good.category)}</span>
                     <div class="item-price">${good.pricePerDay} € / jour</div>
                 </div>
             `;

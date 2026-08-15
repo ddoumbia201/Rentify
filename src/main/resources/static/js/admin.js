@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             users.forEach(user => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${user.email}</td>
-                    <td>${user.role}</td>
+                    <td>${escapeHtml(user.email)}</td>
+                    <td>${escapeHtml(user.role)}</td>
                     <td><button class="btn delete-user-btn" data-id="${user.id}">Supprimer</button></td>
                 `;
                 usersTbody.appendChild(row);
@@ -58,9 +58,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             goods.forEach(good => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${good.title}</td>
-                    <td>${good.category}</td>
-                    <td>${good.owner ? good.owner.email : '—'}</td>
+                    <td>${escapeHtml(good.title)}</td>
+                    <td>${escapeHtml(good.category)}</td>
+                    <td>${good.owner ? escapeHtml(good.owner.email) : '—'}</td>
                     <td><button class="btn delete-good-btn" data-id="${good.id}">Supprimer</button></td>
                 `;
                 goodsTbody.appendChild(row);

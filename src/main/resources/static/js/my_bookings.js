@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             const status = statusLabels[rental.status] || { text: rental.status, class: '' };
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${rental.good.title}</td>
-                <td>${rental.startDate}</td>
-                <td>${rental.endDate}</td>
+                <td>${escapeHtml(rental.good.title)}</td>
+                <td>${escapeHtml(rental.startDate)}</td>
+                <td>${escapeHtml(rental.endDate)}</td>
                 <td><span class="status-badge ${status.class}">${status.text}</span></td>
             `;
             tbody.appendChild(row); // Append the row to the table body
