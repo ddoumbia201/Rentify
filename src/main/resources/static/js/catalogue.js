@@ -1,21 +1,15 @@
+let allGoods = []; 
+
 document.addEventListener('DOMContentLoaded', async () => {
     const catalogue = document.querySelector('.catalogue');
+    const searchForm = document.querySelector('.search-bar');
     if (!catalogue) return;
 
-    try {
-        const response = await fetch('/api/goods');
-        if (!response.ok) {
-            console.error('Erreur lors du chargement des annonces:', response.status);
-            return;
-        }
-
-        const goods = await response.json();
-
-        // On vide le contenu statique (les 6 cartes en dur)
+    function renderGoods(goods) {
         catalogue.innerHTML = '';
 
         if (goods.length === 0) {
-            catalogue.innerHTML = '<p>Aucune annonce disponible pour le moment.</p>';
+            catalogue.innerHTML = '<p>Aucune annonce ne correspond à votre recherche.</p>';
             return;
         }
 
@@ -27,17 +21,49 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <div class="item-body">
                     <div class="item-title">${escapeHtml(good.title)}</div>
                     <span class="item-category">${escapeHtml(good.category)}</span>
-                    <div class="item-price">${good.pricePerDay} € / jour</div>
+                    <div class="item-price">${good.priceperday} € / jour</div>
                 </div>
             `;
-            // Rendre la carte cliquable vers la page détail
             card.addEventListener('click', () => {
                 window.location.href = `item.html?id=${good.id}`;
             });
             catalogue.appendChild(card);
         });
+    }
 
+    try {
+        const response = await fetch('/api/goods');
+        if (!response.ok) {
+            console.error('Erreur lors du chargement des annonces:', response.status);
+            return;
+        }
+        allGoods = await response.json();
+        renderGoods(allGoods);
     } catch (error) {
         console.error('Erreur réseau:', error);
+    }
+
+    // Filtre par catégorie (recherche côté client, sans nouvelle requête)
+    if (searchForm) {
+        searchForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const selectedCategory = document.getElementById('search-category').value;
+            const locationQuery = document.getElementById('search-location').value.trim().toLowerCase();
+
+            let filtered = allGoods;
+
+            if (selectedCategory && selectedCategory !== 'Toutes') {
+                filtered = filtered.filter(good => good.category === selectedCategory);
+            }
+
+            if (locationQuery) {
+                filtered = filtered.filter(good =>
+                    good.location && good.location.toLowerCase().includes(locationQuery)
+                );
+            }
+
+            renderGoods(filtered);
+        });
     }
 });
