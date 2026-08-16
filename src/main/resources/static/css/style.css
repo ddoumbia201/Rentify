@@ -53,6 +53,7 @@ a {
 .navbar .nav-actions {
     display: flex;
     gap: 12px;
+    align-items: center;
 }
 
 .btn {
@@ -191,7 +192,7 @@ a {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 24px;
-    padding: 16px 40px 60px;
+    padding: 56px 40px 60px;
 }
 
 .item-card {
