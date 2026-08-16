@@ -17,19 +17,20 @@ Projet réalisé dans le cadre du cours **INFOB238 — Technologies Web**.
 ## Prérequis
 
 - **Java 17** ou supérieur ([télécharger](https://adoptium.net/))
-- **Maven** (généralement inclus avec votre IDE — IntelliJ IDEA, Eclipse, VS Code)
 - **XAMPP** (ou toute distribution incluant MySQL) — [télécharger](https://www.apachefriends.org/)
 
-Aucune autre installation globale n'est nécessaire : toutes les dépendances Java sont gérées automatiquement par Maven au premier lancement.
+Aucune installation globale de Maven n'est nécessaire : le projet inclut un **wrapper Maven** (`mvnw` / `mvnw.cmd`) qui télécharge et utilise automatiquement la bonne version au premier lancement.
 
 ## Installation
 
-### 1. Cloner le projet
+### 1. Récupérer le projet
 
 ```bash
 git clone <url-du-dépôt>
-cd location-biens
+cd Rentify
 ```
+
+> Le nom exact du dossier dépend de la façon dont vous avez cloné/téléchargé le projet — vérifiez-le avec `dir` (Windows) ou `ls` (Mac/Linux) si `cd` échoue.
 
 ### 2. Démarrer MySQL via XAMPP
 
@@ -47,7 +48,11 @@ location_biens
 
 Aucune table n'est à créer manuellement — elles sont générées automatiquement au premier lancement de l'application (via Hibernate/JPA).
 
-### 4. Vérifier la configuration de connexion
+### 4. (Optionnel) Charger des données de test
+
+Le fichier `donnees_test.sql` fourni dans les ressources du projet contient 3 utilisateurs et 15 annonces de démonstration. Dans phpMyAdmin, onglet **SQL** de la base `location_biens`, collez et exécutez son contenu **après** le premier lancement de l'application (étape suivante), une fois les tables créées.
+
+### 5. Vérifier la configuration de connexion
 
 Le fichier `src/main/resources/application.properties` contient déjà la configuration par défaut d'XAMPP :
 
@@ -61,13 +66,27 @@ Si votre installation MySQL utilise des identifiants différents, ajustez ces de
 
 ## Lancer l'application
 
-Depuis la racine du projet :
+Depuis la racine du projet, **deux méthodes possibles** :
 
+### Méthode 1 — Ligne de commande (via le wrapper Maven inclus)
+
+**Sur Windows** (CMD ou PowerShell) :
 ```bash
-mvn spring-boot:run
+mvnw.cmd spring-boot:run
 ```
 
-Attendez que le terminal affiche une ligne du type :
+**Sur Mac/Linux** :
+```bash
+./mvnw spring-boot:run
+```
+
+### Méthode 2 — Depuis votre IDE (IntelliJ, Eclipse, VS Code)
+
+Ouvrez le fichier `src/main/java/com/project/locationbiens/LocationBiensApplication.java` et cliquez sur le bouton **Run** (▶) à côté de la méthode `main`. C'est la méthode la plus fiable si la ligne de commande pose problème.
+
+---
+
+Dans les deux cas, attendez que le terminal (ou la console de l'IDE) affiche une ligne du type :
 
 ```
 Started LocationBiensApplication in X.XXX seconds
@@ -81,20 +100,26 @@ http://localhost:8080
 
 ## Comptes de test
 
-À l'inscription (`/register.html`), tout nouveau compte reçoit automatiquement le rôle **USER**.
+Si vous avez chargé `donnees_test.sql` (voir étape 4 de l'installation), 3 comptes sont disponibles :
 
-Pour obtenir un compte **ADMIN**, inscrivez-vous normalement puis exécutez cette requête dans phpMyAdmin (onglet SQL de la base `location_biens`) :
+| Email | Mot de passe |
+|---|---|
+| julie.dupont@exemple.com | Password123! |
+| marc.petit@exemple.com | Password123! |
+| sophie.lambert@exemple.com | Password123! |
+
+Pour obtenir un compte **ADMIN**, exécutez cette requête dans phpMyAdmin (onglet SQL de la base `location_biens`) :
 
 ```sql
-UPDATE Users SET role = 'ADMIN' WHERE email = 'votre-email@exemple.com';
+UPDATE Users SET role = 'ADMIN' WHERE email = 'julie.dupont@exemple.com';
 ```
 
-Reconnectez-vous ensuite avec ce compte pour accéder au back-office administrateur (`/admin.html`).
+Reconnectez-vous ensuite avec ce compte pour accéder au back-office administrateur (lien "Admin" dans la barre de navigation, ou directement `/admin.html`).
 
 ## Structure du projet
 
 ```
-location-biens/
+<racine du projet>/
 ├── src/main/java/com/project/locationbiens/
 │   ├── config/          # Configuration Spring Security, CORS
 │   ├── controller/      # Contrôleurs REST (Auth, Good, Rental, Admin)
@@ -107,6 +132,7 @@ location-biens/
 │   │   ├── css/
 │   │   ├── js/
 │   │   └── *.html
+│   ├──donnees_test.sql  # Jeu de données de démonstration (optionnel)
 │   └── application.properties
 └── pom.xml
 ```
@@ -114,7 +140,7 @@ location-biens/
 ## Fonctionnalités
 
 - Inscription et connexion, avec distinction de rôle (USER / ADMIN)
-- Consultation du catalogue d'annonces, filtrable par catégorie
+- Consultation du catalogue d'annonces, filtrable par catégorie et par lieu
 - Création, modification et suppression d'une annonce par son propriétaire
 - Réservation d'un bien avec calcul automatique du prix total
 - Consultation de ses propres annonces et réservations
@@ -136,3 +162,10 @@ location-biens/
 - Protection CSRF (token vérifié sur chaque requête modifiant des données)
 - Politique CORS explicite
 - Mots de passe hachés (BCrypt), jamais stockés en clair
+
+## Limites connues
+
+- Pas de vérification des chevauchements de dates sur une même annonce
+- Pas de gestion réelle des photos (images d'illustration génériques)
+- La recherche par date sur la page d'accueil n'est pas implémentée (seuls la catégorie et le lieu filtrent réellement)
+- La suppression d'une annonce ayant des réservations associées est volontairement bloquée (intégrité des données), sans mécanisme d'annulation de réservation pour débloquer ce cas
